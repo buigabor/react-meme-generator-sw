@@ -67,7 +67,7 @@ function App() {
 					<GenerateMeme memeUrl={memeUrl} />
 					<DownloadMeme memeUrl={memeUrl} />
 				</ImageWrapper>
-				<CachedData />
+				<CachedData setMemeUrl={setMemeUrl} />
 			</StyledGrid>
 		</>
 	);

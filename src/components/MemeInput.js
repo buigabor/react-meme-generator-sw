@@ -51,7 +51,6 @@ const Label = styled.label`
 
 export default function MemeInput({
 	setMemeUrl,
-	memeUrl,
 	memeTemplates,
 	setClicked,
 	clicked,
@@ -111,7 +110,7 @@ export default function MemeInput({
 				<Label htmlFor='slug'>Meme Slug Name</Label>
 
 				<Select
-					selected=''
+					defaultValue={'DEFAULT'}
 					name='slug'
 					id='slug'
 					onChange={() => {
@@ -123,13 +122,26 @@ export default function MemeInput({
 						setMemeUrl(blackMemeUrl);
 					}}
 				>
-					{memeTemplates.map((meme) => {
-						return (
-							<option key={meme.key} value={meme.key}>
-								{meme.name}
-							</option>
-						);
-					})}
+					<option value='DEFAULT' disabled>
+						Select a meme!
+					</option>
+					{memeTemplates
+						.sort(function (a, b) {
+							if (a.name < b.name) {
+								return -1;
+							}
+							if (a.name > b.name) {
+								return 1;
+							}
+							return 0;
+						})
+						.map((meme) => {
+							return (
+								<option key={meme.key} value={meme.key}>
+									{meme.name}
+								</option>
+							);
+						})}
 				</Select>
 				<SubmitButton type='submit' disabled={clicked ? true : false}>
 					Submit

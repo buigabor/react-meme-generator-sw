@@ -17,6 +17,7 @@ const Wrapper = styled.div`
 	padding: 1.5rem 1rem;
 	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
 		rgba(0, 0, 0, 0.3) 0px 18px 36px;
+	transition: all 0.6s;
 `;
 
 const MemeDiv = styled.div`
@@ -28,21 +29,31 @@ const MemeDiv = styled.div`
 	padding: 10px;
 	background-color: #fff;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	cursor: pointer;
 `;
 
 const SpanCache = styled.span`
-	color: #39ff14;
 	padding-bottom: 1rem;
-	font-size: 1.5em;
+	font-size: 1.4em;
 	font-weight: 400;
+	font-family: Hack, monospace;
+`;
+
+const CacheDiv = styled.span`
+	background: #fff;
+	color: #2c2c2c;
+	border-radius: 5px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	padding: 0.6rem;
 `;
 
 const Span = styled.span`
 	color: black;
-	font-size: 0.8em;
+	font-size: 0.95em;
 	margin-bottom: 4px;
+	font-family: Hack, monospace;
 `;
-export default function CachedData() {
+export default function CachedData({ setMemeUrl }) {
 	function allStorage() {
 		let values = [],
 			keys = Object.keys(localStorage),
@@ -58,11 +69,23 @@ export default function CachedData() {
 	let local = allStorage();
 	console.log(local);
 	return (
-		<Wrapper>
-			<SpanCache>Cached Data</SpanCache>
+		<Wrapper
+			style={{
+				height: local.length === 0 ? 0 : 400,
+				visibility: local.length === 0 ? 'hidden' : 'visible',
+			}}
+		>
+			<CacheDiv>
+				<SpanCache>Cached Data</SpanCache>
+			</CacheDiv>
 			{local.map((meme) => {
 				return (
-					<MemeDiv key={meme.memeUrl}>
+					<MemeDiv
+						key={meme.memeUrl}
+						onClick={() => {
+							setMemeUrl(meme.memeUrl);
+						}}
+					>
 						<Span>Top text: {meme.topText}</Span>
 						<Span>Bottom text: {meme.bottomText}</Span>
 						<Span>Photo type: {meme.photoType}</Span>
