@@ -39,6 +39,18 @@ const ImageWrapper = styled.div`
 	gap: 14px;
 `;
 
+const Title = styled.h1`
+	color: #2c2c2c;
+	font-size: 3em;
+	position: absolute;
+	left: 1.5rem;
+	font-family: Hack, monospace;
+	&:hover {
+		color: #2b2bff;
+		transition: all 0.5s;
+	}
+`;
+
 function App() {
 	const [memeTemplates, setMemeTemplates] = useState([]);
 	const [memeUrl, setMemeUrl] = useState();
@@ -53,6 +65,10 @@ function App() {
 	// console.log(memeTemplates);
 	return (
 		<>
+			<Title>
+				Meme <br />
+				Generator
+			</Title>
 			<StyledGrid>
 				<FormWrapper>
 					<MemeInput
